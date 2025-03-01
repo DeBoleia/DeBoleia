@@ -1,0 +1,14 @@
+<!-- <google-map [center]="center" [zoom]="zoom">
+	<map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
+</google-map> -->
+
+<google-map #map [center]="center" [zoom]="zoom">
+	<map-directions-renderer
+	  *ngIf="directionsResult$ | async as directionsResult"
+	  [directions]="directionsResult">
+	</map-directions-renderer>
+	<map-marker *ngFor="let marker of markers" [position]="marker"></map-marker>
+  </google-map>
+  <div *ngIf="directionsResult$ | async as directionsResult">
+  </div>
+  

@@ -1,0 +1,102 @@
+<mat-dialog-content>
+	<div class="container">
+	  <!-- Title and Status Badge -->
+	  <div class="section">
+		<h2 class="section-title">
+		  Trip Details: {{ trip?.tripCode }}
+		  <span class="badge" [ngClass]="{
+			'bg-primary': trip?.status === 'created',
+			'bg-success': trip?.status === 'inOffer',
+			'bg-secondary': trip?.status === 'closed',
+			'bg-warning': trip?.status === 'ongoing',
+			'bg-info': trip?.status === 'arrived',
+			'bg-dark': trip?.status === 'finished',
+			'bg-danger': trip?.status === 'canceled'
+		  }">
+			{{ trip?.status === 'inOffer' ? 'In Offer' : (trip?.status | titlecase) }}
+		  </span>
+		</h2>
+	  </div>
+  
+	  <!-- Driver and Car Details -->
+	  <mat-card class="driver-card">
+		<mat-card-content class="flex-container">
+		  <div class="driver">
+			<img src="/avatar.png" alt="Avatar" class="avatar">
+			<div class="driver-details">
+			  <span class="driver-name">{{ trip?.driver?.name }}</span>
+			  <app-star-rating [rating]="trip?.driver?.driverRating"
+				[nrEvaluations]="trip?.driver?.driverRatingCount"
+				[showEvaluations]="true"></app-star-rating>
+			</div>
+		  </div>
+		  <div class="car">
+			<div class="car-details">
+			  <p><mat-icon>directions_car</mat-icon> <strong>Car:</strong> {{ trip?.car?.brand }} - {{ trip?.car?.model }} ({{ trip?.car?.color }})</p>
+			  <p><mat-icon>confirmation_number</mat-icon> <strong>License Plate:</strong> {{ trip?.car?.licensePlate }}</p>
+			  <p><mat-icon>event_seat</mat-icon> <strong>Seats Available:</strong> {{ trip?.nrSeats - trip?.passengers.length }}/{{ trip?.nrSeats }}</p>
+			</div>
+		  </div>
+		</mat-card-content>
+	  </mat-card>
+  
+	  <!-- Trip Date and Time -->
+	  <div class="trip-schedule">
+		<p><mat-icon>calendar_today</mat-icon> {{ trip?.departureDate | date: 'fullDate' }}</p>
+		<p><mat-icon>access_time</mat-icon> {{ trip?.departureDate | date: 'shortTime' }}</p>
+	  </div>
+  
+	  <!-- Origin and Destination -->
+	  <div class="map-info flex-container">
+		<div class="from-info">
+		  <mat-icon>my_location</mat-icon>
+		  <p><strong>From:</strong> {{ trip?.origin.parish }} - {{ trip?.origin.municipality }}, {{ trip?.origin.district }}</p>
+		</div>
+		<div class="to-info">
+		  <mat-icon>location_on</mat-icon>
+		  <p><strong>To:</strong> {{ trip?.destination?.parish }} - {{ trip?.destination?.municipality }}, {{ trip?.destination?.district }}</p>
+		</div>
+	  </div>
+  
+	  <!-- Map Display -->
+	  <div class="map-display">
+		<app-map-display [to]="trip.destination" [from]="trip.origin"></app-map-display>
+	  </div>
+  
+	  <!-- Trip Costs -->
+	  <div class="trip-info flex-container">
+		<div class="trip-cost">
+		  <p><mat-icon>attach_money</mat-icon> <strong>Estimated Total Cost:</strong> €{{ trip?.estimatedCost }}</p>
+		</div>
+		<div class="trip-cost">
+		  <p><mat-icon>person</mat-icon> <strong>Price Per Person:</strong> €{{ trip?.pricePerPerson }}</p>
+		</div>
+	  </div>
+  
+	  <!-- Passengers -->
+	  <mat-expansion-panel hideToggle>
+		<mat-expansion-panel-header>
+		  <mat-panel-title> See Who Is Traveling With You! </mat-panel-title>
+		</mat-expansion-panel-header>
+		<ul *ngIf="trip?.passengers?.length; else noPassengers">
+		  <li *ngFor="let passenger of trip?.passengers" class="passenger">
+			{{ passenger.name.split(' ')[0] }}
+			<div class="rating">
+			  <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+				<span [class.filled]="i < passenger.passengerRating">&#9733;</span>
+			  </ng-container>
+			</div>
+		  </li>
+		</ul>
+		<ng-template #noPassengers>
+		  <p class="no-passengers">There are no passengers yet.</p>
+		</ng-template>
+	  </mat-expansion-panel>
+	</div>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions align="end">
+	<button mat-button mat-dialog-close color="primary" (click)="applyToTrip()">Apply</button>
+	<button mat-raised-button  mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+  

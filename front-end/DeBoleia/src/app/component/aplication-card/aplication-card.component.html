@@ -1,0 +1,88 @@
+<mat-grid-list cols="2" rowHeight="3:1" style="border-bottom: solid black 1px;">
+	<mat-grid-tile>
+		@if (isDriver)
+		{
+		<div style="display: flex; flex-direction: column;">
+			<img src="/avatar.png" alt="Avatar" class="avatar">
+			<span class="driver-name">{{ application?.user?.name }}</span>
+			<app-star-rating [rating]="application?.user?.passengerRating"
+				[nrEvaluations]="application?.user?.passengerRatingCount" [size]="'1x'" [showEvaluations]="true"
+				[readOnly]="true"></app-star-rating>
+		</div>
+		}
+		@if (!isDriver)
+		{
+		<div style="display: flex; flex-direction: column;">
+			<img src="/avatar.png" alt="Avatar" class="avatar">
+			<span class="driver-name">{{ application?.trip?.driver?.name }}</span>
+			<app-star-rating [rating]="application?.trip?.driver?.driverRating"
+				[nrEvaluations]="application?.trip?.driver?.driverRatingCount" [size]="'1x'" [showEvaluations]="true"
+				[readOnly]="true"></app-star-rating>
+		</div>
+		}
+	</mat-grid-tile>
+	<mat-grid-tile>
+		<div *ngIf="isDriver" style="display: flex; flex-direction: column;">
+			<mat-list>
+				<div *ngIf="isDriver && application?.status === 'underReview'">
+					<mat-list-item>
+						<button mat-button color="primary" style="background-color: #4EC28F; color: black; width: 100px;"
+							(click)="acceptPassenger(application?.user?.userID)">Accept</button>
+					</mat-list-item>
+					<mat-list-item>
+						<button mat-button color="warn" style="background-color: #c24e4e; color: whitesmoke; width: 100px;"
+							(click)="rejectPassenger(application?.user?.userID)">Reject</button>
+					</mat-list-item>
+				</div>
+				<div *ngIf="!(isDriver && application?.status === 'underReview')">
+					<span [ngClass]="{
+							'bg-primary': application?.status === 'approved',
+							'bg-success': application?.status === 'approved',
+							'bg-secondary': application?.status === 'waitlist',
+							'bg-danger': application?.status === 'rejected',
+							'bg-dark': application?.status === 'canceled',
+						}" style="padding: 5px 10px; border-radius: 5px; color: white;">
+						{{(application?.status | uppercase)}}
+					</span>
+				</div>
+			</mat-list>
+		</div>
+		<div *ngIf="!isDriver" style="display: flex; flex-direction: column; gap: 6px;">
+
+			<div style="display: flex; flex-direction: row; gap: 10px;">
+
+				<mat-icon matListItemIcon matTooltip="status">info</mat-icon>
+				<span matListItemTitle>{{application?.status}}</span>
+			</div>
+
+			<div style="display: flex; flex-direction: row; gap: 10px;">
+				<mat-icon matListItemIcon matTooltip="departure date and time">calendar_today</mat-icon>
+				<span matListItemTitle> {{ trip?.departureDate | date: 'fullDate' }},
+					{{ trip?.departureDate | date: 'shortTime' }}
+				</span>
+			</div>
+
+			<div style="display: flex; flex-direction: row; gap: 10px;">
+
+				<mat-icon matListItemIcon matTooltip="origin">my_location</mat-icon>
+				<span matListItemTitle> {{ trip?.origin.parish }} - {{ trip?.origin.municipality }}, {{
+					trip?.origin.district }}</span>
+			</div>
+
+			<div style="display: flex; flex-direction: row; gap: 10px;">
+
+				<mat-icon matListItemIcon matTooltip="destination">location_on</mat-icon>
+				<span matListItemTitle> {{ trip?.destination.parish }} - {{
+					trip?.destination.municipality }}, {{
+					trip?.destination.district }}</span>
+			</div>
+
+		</div>
+		@if (application.status != 'approved' && application.status != 'rejected' && application.status != 'canceled' && !isDriver)
+		{
+		<button mat-raised-button style="margin: auto; background-color: #c24e4e; color: whitesmoke;"
+			(click)="cancelApplication()"> <mat-icon style>delete</mat-icon> cancel </button>
+
+		}
+	</mat-grid-tile>
+</mat-grid-list>

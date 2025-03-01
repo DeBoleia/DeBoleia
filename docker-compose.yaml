@@ -18,7 +18,7 @@ services:
 
   deboleia_fe:
     build:
-      context: ./Deboleia_FE
+      context: ./front-end/DeBoleia
       dockerfile: Dockerfile
     ports:
       - "4200:4200"
@@ -28,36 +28,36 @@ services:
       - deboleia_network
     restart: on-failure
 
-  cars_be: 
-    build:
-      context: ./Cars_BE
-      dockerfile: Dockerfile
-    ports:
-      - "8083:8083"
-    environment:
-      - API_PORT=8083
-      - MONGO_DB_CON_STRING=mongodb://mongodb:27017/cars
-    networks:
-      - deboleia_network
-    volumes:
-      - ./DeBoleia_BE/DeBoleia_BE_GIT/DeBoleia/DB:/app/deboleia-be/DB
-    restart: on-failure
-    depends_on:
-      - mongodb
+  # cars_be: 
+  #   build:
+  #     context: ./Cars_BE
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8083:8083"
+  #   environment:
+  #     - API_PORT=8083
+  #     - MONGO_DB_CON_STRING=mongodb://mongodb:27017/cars
+  #   networks:
+  #     - deboleia_network
+  #   volumes:
+  #     - ./DeBoleia_BE/DeBoleia_BE_GIT/DeBoleia/DB:/app/deboleia-be/DB
+  #   restart: on-failure
+  #   depends_on:
+  #     - mongodb
 
-  geoapi:
-    build:
-      context: ./GeoAPI
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    networks:
-      - deboleia_network
-    restart: on-failure
-    volumes:
-      - type: bind
-        source: ./GeoAPI/GeoAPI_GIT/res
-        target: /usr/src/app/res
+  # geoapi:
+  #   build:
+  #     context: ./GeoAPI
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - deboleia_network
+  #   restart: on-failure
+  #   volumes:
+  #     - type: bind
+  #       source: ./GeoAPI/GeoAPI_GIT/res
+  #       target: /usr/src/app/res
 
   mongodb:
     image: mongo:latest

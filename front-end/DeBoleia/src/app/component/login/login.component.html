@@ -1,0 +1,23 @@
+<div class="login-container mat-elevation-z8">
+	<br>
+	<h1 id="title">Login</h1>
+	<div class="formulario">
+		
+		<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+			<div class="mb-3"><input id="email" formControlName="email" class="form-control" type="email" name="email"
+				placeholder="email">
+			</div>
+			<div class="mb-3"><input id="password" formControlName="password" class="form-control" type="password"
+				name="password" placeholder="password">
+			</div>
+			
+
+			<div class="action-buttons">
+				<button mat-button  type="submit" >Login</button>
+				<button *ngIf="isAccountInactive" mat-button (click)="ativarConta()">Reactivate Account?</button>
+			</div>
+			
+			<p>Don't have an account? <a href="/register">Create one now.</a></p>
+		</form>
+	</div>
+</div>

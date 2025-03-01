@@ -1,0 +1,63 @@
+<div>
+	<br>
+	<h4 mat-dialog-title style="text-align: center; margin-left: 20px; padding: 0 20px;"> {{ isEditing ? 'Edit User' : 'Add New User' }}</h4>
+	<form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+	  <mat-dialog-content>
+  
+		<mat-form-field appearance="outline">
+		  <mat-label>Name</mat-label>
+		  <input matInput formControlName="name" placeholder="Insert your name" />
+		</mat-form-field>
+  
+		<mat-form-field appearance="outline">
+		  <mat-label>Email</mat-label>
+		  <input matInput type="email" formControlName="email" placeholder="Insert an email address" />
+		</mat-form-field>
+  
+		<mat-form-field appearance="outline">
+			<mat-label>Phone Number	</mat-label>
+			<input matInput placeholder="Phone Number" formControlName="phoneNumber" />
+			<mat-error *ngIf="userForm.get('phoneNumber')?.hasError('invalidPhoneNumber')">
+				The phone number must have 9 digits.
+			  </mat-error>
+		  </mat-form-field>
+  
+		<mat-form-field appearance="outline">
+		  <mat-label>NIF</mat-label>
+		  <input matInput formControlName="NIF" placeholder="Insert a Tax Identification Number" />
+		</mat-form-field>
+  
+		<mat-form-field appearance="outline">
+		  <mat-label>Birth Date</mat-label>
+		  <input matInput [matDatepicker]="nascimentoPicker" formControlName="birthDate" />
+		  <mat-datepicker-toggle matSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
+		  <mat-datepicker #nascimentoPicker></mat-datepicker>
+
+			<mat-error *ngIf="userForm.get('birthDate')?.hasError('underage')">
+				You must be at least 18 years old.
+			</mat-error>
+		</mat-form-field>
+
+		<mat-form-field appearance="outline">
+			<mat-label>Drivers License</mat-label>
+			<input matInput type="tel" formControlName="driversLicense" placeholder="Insert a Drivers License" />
+			<mat-error *ngIf="userForm.get('driversLicense')?.hasError('invalidLicense')">
+				The driver's license must start with 'L' followed by 6 digits.
+			  </mat-error>
+		</mat-form-field>
+  
+		<div *ngIf="showWarning" style="color: red; margin-top: 10px;">
+		  Are you sure you want to deactivate the account?
+		</div>
+		<br>
+  
+	  </mat-dialog-content>
+  
+	  <div mat-dialog-actions>
+		<button mat-button (click)="onCancel()">Cancel</button>
+		<button mat-button color="primary" [disabled]="!userForm.valid">
+		  {{ isEditing ? 'Save' : 'Create' }}
+		</button>
+	  </div>
+	</form>
+  </div>

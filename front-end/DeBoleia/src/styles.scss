@@ -1,0 +1,43 @@
+// Global cursor styles
+a,
+button,
+[role="button"],
+[routerLink],
+.clickable,
+mat-button,
+.nav-link,
+.logo-item {
+	cursor: pointer !important;
+}
+
+// For images within clickable elements
+a img,
+button img,
+[role="button"] img,
+[routerLink] img,
+.clickable img,
+.logo-item img {
+	cursor: pointer !important;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-elevation-z8 {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mat-horizontal-stepper-header {
+	margin-bottom: 35px !important;
+}
+
+.mat-mdc-text-field-wrapper {
+	margin-top: 20px;
+}

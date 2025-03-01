@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>{{ isEditing ? 'Edit Models' : 'Add New Car' }}</h2>
+<form [formGroup]="carsForm" (ngSubmit)="onSubmit()">
+	<mat-dialog-content class="form-container">
+		<div class="scrollable-form">
+
+			<mat-form-field appearance="outline">
+				<mat-label>Brand</mat-label>
+				<input matInput formControlName="brand" placeholder="Car Brand" />
+				<mat-hint *ngIf="carsForm.get('brand')?.invalid && carsForm.get('brand')?.dirty">
+					car brands
+				</mat-hint>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline">
+				<mat-label>Model</mat-label>
+				<input matInput formControlName="model" placeholder="Car Model" />
+			</mat-form-field>
+
+		</div>
+	</mat-dialog-content>
+
+	<div mat-dialog-actions>
+		<button mat-button (click)="onCancel()">Cancel</button>
+		<button mat-button color="primary" [disabled]="!carsForm.valid">
+			{{ isEditing ? 'Save' : 'Create' }}
+		</button>
+	</div>
+</form>

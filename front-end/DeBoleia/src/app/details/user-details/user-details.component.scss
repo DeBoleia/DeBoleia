@@ -1,0 +1,145 @@
+.badge {
+    margin-left: 0px;
+}
+
+.cars-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.car-card {
+    flex: 1 1 calc(33% - 16px);
+    box-sizing: border-box;
+    min-width: 200px;
+}
+
+mat-card {
+  flex: 1;
+}
+
+.card-container2 {
+    display: flex;
+    gap: 15px;
+  }
+
+
+.cars-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.car-card {
+    min-width: 200px;
+    max-width: 100%;
+}
+
+
+.cars-container .car-card:nth-child(3n+1) {
+    margin-left: 0;
+}
+
+.custom-yellow-button {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .custom-yellow-button:hover {
+    background-color: #e0a800;
+  }
+
+
+  .table-container {
+    display: table;
+    width: 100%; 
+  }
+  
+  .table-row {
+    display: flex;
+    align-items: stretch;
+  }
+  
+  .table-cell {
+    height: 100%;
+    // display: table-cell;
+    padding: 10px; 
+    width: 50%; 
+    vertical-align: top; 
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  ::ng-deep .center-snackbar {
+    position: fixed !important;
+    top: 90% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: #323232;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    text-align: center;
+    padding: 16px 24px;
+    width: auto;
+    max-width: 80%;
+  }
+  
+  ::ng-deep .center-snackbar .mat-mdc-snack-bar-container {
+    position: absolute;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+.color-circle {
+  width: 20px;  
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px; 
+  border: 1px solid #ccc;
+}
+
+.car-info {
+    background-color: white;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 10px 0;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .car-info:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  .car-info p {
+    margin: 8px 0;
+  }
+
+  .color-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .color-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+  }
+
+  .borda-customizada {
+    border: 5px solid #b8ffd2;
+    border-radius: 12px;
+  }

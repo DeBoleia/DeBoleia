@@ -1,0 +1,72 @@
+<div>
+	<mat-card>
+		<!-- <mat-card-header class="header-row">
+			<mat-card-title>{{brand}} Models ({{dataSource.data.length}})</mat-card-title> </mat-card-header> -->
+
+		<div class="search-container">
+			<mat-form-field appearance="outline" class="search-field">
+				<mat-label>Find model</mat-label>
+				<input (keyup)="filterModels($event)" matInput placeholder="Search models">
+				<mat-icon matSuffix>search</mat-icon>
+			</mat-form-field>
+		</div>
+
+		<div style="display: flex; justify-content: space-between; align-items: center;">
+			<div class="button-container" style="display: flex; gap: 15px;">
+				<button
+					style="background-color: #bebebe; color: black; padding: 10px 15px; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;"
+					(click)="goBack()">
+					<mat-icon>arrow_back</mat-icon>
+					Back to Brands
+				</button>
+				<button
+					style="background-color: #6a977a; color: black; padding: 10px 15px; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;"
+					(click)="addNewModel()">
+					<mat-icon>add</mat-icon>
+					Add New Model
+				</button>
+			</div>
+			<img src="/findAride.png" alt="Car Image"
+				style="height: 80px; border-radius: 12px; border: 4px solid  #62de8f; margin-right: 20px; margin-bottom: 20px;">
+
+		</div>
+
+		<mat-card-content>
+			<table mat-table [dataSource]="dataSource" matSort [matSortDisableClear]="true">
+				<ng-container matColumnDef="model">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Model</th>
+					<td mat-cell *matCellDef="let element">{{element.model}}</td>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef></th>
+					<td mat-cell *matCellDef="let element">
+						<button mat-flat-button color="accent" [ngStyle]="{ 
+							'background-color': '#105613', 
+							'color': 'white', 
+							'padding': '10px 15px', 
+							'border': 'none', 
+							'border-radius': '10px', 
+							'cursor': 'pointer' 
+						}" (click)="editModel(element.model)">
+							<mat-icon>edit</mat-icon>
+							Rename Model
+						</button>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+			</table>
+
+			@if (!dataSource.data.length) {
+			<div class="no-data-message">No models found for this brand</div>
+			}
+			<br>
+			<mat-paginator #paginator [length]="dataSource.data.length" [pageSize]="10" [pageSizeOptions]="[10, 20, 50, 100]"
+				showFirstLastButtons>
+			</mat-paginator>
+		</mat-card-content>
+
+	</mat-card>
+</div>

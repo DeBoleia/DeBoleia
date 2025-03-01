@@ -1,0 +1,25 @@
+<div [ngClass]="data.type">
+	<h1 mat-dialog-title>{{ data.title }}</h1>
+	<div mat-dialog-content>
+		<p>{{ data.text }}</p>
+		<ng-container *ngIf="data.requiresCodeInput">
+			<mat-form-field appearance="outline" style="width: 100%;">
+				<mat-label>Insert the code to confirm</mat-label>
+				<input matInput [(ngModel)]="inputCode" (input)="validateCode()" />
+			</mat-form-field>
+			<p *ngIf="!isCodeValid && inputCode" style="color: red;">Invalid code.</p>
+		</ng-container>
+	</div>
+	<div mat-dialog-actions>
+		<ng-container *ngIf="data.isConfirmation; else messageActions">
+			<button mat-raised-button color="warn" (click)="onConfirm()"
+				[disabled]="data.requiresCodeInput && !isCodeValid">
+				Confirm
+			</button>
+			<button mat-raised-button color="accent" (click)="onClose()">Cancel</button>
+		</ng-container>
+		<ng-template #messageActions>
+			<button mat-raised-button color="primary" (click)="onClose()">Close</button>
+		</ng-template>
+	</div>
+</div>

@@ -1,0 +1,43 @@
+.car-database-container {
+		padding: 20px;
+	
+		.search-field {
+			width: 100%;
+
+		}
+	
+		.button-container {
+			margin-bottom: 16px;
+			padding: 0 16px;
+		}
+	
+		table {
+			width: 100%;
+		}
+	
+		.action-cell {
+			padding: 8px 16px;
+			
+			.button-group {
+				display: flex;
+				gap: 8px;
+				justify-content: flex-start;
+			}
+		}
+	
+		.no-data-message {
+			text-align: center;
+			padding: 20px;
+			color: rgba(0, 0, 0, 0.54);
+		}
+	}
+
+	::ng-deep .custom-view-models-button.mat-flat-button {
+		background-color: #b8ffd2 !important;
+		color: black !important;
+	}
+	
+	::ng-deep .custom-rename-brand-button.mat-flat-button {
+		background-color: #4caf50 !important;
+		color: white !important;
+	}

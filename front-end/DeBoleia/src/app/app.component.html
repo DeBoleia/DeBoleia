@@ -1,0 +1,82 @@
+<!-- <div *ngIf="isLoading" class="spinner-overlay">
+  <mat-spinner></mat-spinner>
+</div> -->
+<div class="app-container">
+  <div class="content-wrapper">
+    <!-- Navigation -->
+    <ul class="nav nav-tabs">
+      <div class="nav-left">
+        <li class="nav-item logo-item" routerLink="/home">
+          <img src="/DeBoleiaLogo.svg" alt="DeBoleia Logo" style="width: 110px; height: auto;">
+          <a class="nav-link" routerLink="/home">DeBoleia</a>
+        </li>
+        
+        @if (isAdmin()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cars">Manage Car Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/user">Manage Users</a>
+          </li>
+        } @else {
+        <li class="nav-item">
+          <a class="nav-link" (click)="manageTrips('/trips')">Find Rides</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="manageTrips('/offertrip')">Offer a ride</a>
+        </li>
+        <li *ngIf="isLoggedIn()" class="nav-item">
+          <a class="nav-link" routerLink="mytrips">My Trips</a>
+        </li>
+        }
+      </div>
+
+      <div class="nav-right">
+        @if (!isLoggedIn()) {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+          </li>
+        } @else {
+          @if (!isAdmin()) {
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['/user', getUserId()]">Edit Profile</a>
+            </li>
+          }
+          <li class="nav-item">
+            <a class="nav-link" (click)="logout()">Logout</a>
+          </li>
+        }
+      </div>
+    </ul>
+
+    <!-- Main content -->
+    <div class="app-container">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- Back to Top Button -->
+    @if (showBackToTop) {
+    <button (click)="scrollToTop()" class="btn btn-primary back-to-top" title="Go to top">
+      ↑
+    </button>
+    }
+
+    <!-- Footer -->
+    <div >
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-left">
+            <a href="/rgpd" class="footer-link"><strong>GDPR</strong></a>
+          </div>
+          <div class="footer-center">
+            <strong>© 2025 DeBoleia</strong>
+          </div>
+          <div class="footer-right">
+            <a href="/aboutus" class="footer-link"><strong>About Us</strong></a>
+          </div>
+        </div>
+      </footer>
+    </div>

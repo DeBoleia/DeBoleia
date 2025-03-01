@@ -1,0 +1,10 @@
+<div class="rating-component">
+    <div id="stars-container" [class.readOnly]="readOnly">
+        <fa-icon [class]="getStarClass(5)" [icon]="getStarIcon(5)" [size]="size" (click)="setRating(5)"></fa-icon>
+        <fa-icon [class]="getStarClass(4)" [icon]="getStarIcon(4)" [size]="size" (click)="setRating(4)"></fa-icon>
+        <fa-icon [class]="getStarClass(3)" [icon]="getStarIcon(3)" [size]="size" (click)="setRating(3)"></fa-icon>
+        <fa-icon [class]="getStarClass(2)" [icon]="getStarIcon(2)" [size]="size" (click)="setRating(2)"></fa-icon>
+        <fa-icon [class]="getStarClass(1)" [icon]="getStarIcon(1)" [size]="size" (click)="setRating(1)"></fa-icon>
+    </div>
+    <p *ngIf="showEvaluations">({{ nrEvaluations }} evaluations)</p>
+</div>

@@ -1,0 +1,95 @@
+.content {
+	display: flex;
+	justify-content: space-around;
+	align-items: flex-start;
+	width: 80%;
+	height: 100%;
+	padding: 10px;
+	overflow: hidden;
+}
+
+.driver {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	overflow: hidden;
+}
+
+.car {
+	display: flex;
+	flex-direction: column;
+	margin-top: 10px;
+	align-items: center;
+	overflow: hidden;
+}
+
+.avatar {
+	width: 290px;
+	height: 290px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ccc;
+	margin-bottom: 4px;
+	margin: auto;
+}
+
+.driver-name {
+	text-align: center;
+	font-size: 34px;
+	font-weight: bold;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.rating {
+	display: flex;
+	gap: 2px;
+	/* Reduz o espaçamento entre as estrelas */
+}
+
+.rating span {
+	font-size: 16px;
+	color: #ccc;
+}
+
+.rating span.filled {
+	color: gold;
+	/* Cor das estrelas preenchidas */
+}
+
+.car-details span {
+	text-align: start;
+	align-items: center;
+	display: block;
+}
+
+
+mat-dialog-content app-map-display {
+	overflow: hidden;
+}
+
+:host {
+	--mat-dialog-with-actions-content-padding: 50px;
+}
+
+
+.avatar2 {
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ccc;
+	// margin-bottom: 4px;
+	margin: auto;
+	margin-top: 15px;
+}
+
+.driver-name2 {
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	margin: auto;
+	// margin-top: 10px;
+	// margin-bottom: 10px;
+}

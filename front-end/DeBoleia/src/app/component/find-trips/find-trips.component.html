@@ -1,0 +1,136 @@
+<div class="main">
+	<div class="col-left">
+		<div class="search-filter">
+			<h1 id="title">FIND YOUR RIDE</h1>
+			<p id="subtitle">Discover the best rides at unbeatable prices. Your journey starts here!</p>
+			<div class="search-input">
+				<!-- District Field -->
+				<mat-label matTooltip="origin"><mat-icon>my_location</mat-icon></mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput placeholder="District" [formControl]="originDistrictControl"
+						[matAutocomplete]="autoOriginDistrict">
+					<mat-autocomplete #autoOriginDistrict="matAutocomplete">
+						<mat-option *ngFor="let district of originFilteredDistricts | async" [value]="district">
+							{{ district }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<!-- Municipality Field (only visible if a valid district is selected) -->
+				<ng-container *ngIf="originDistrictControl.value && districts.includes(originDistrictControl.value)">
+					<mat-form-field appearance="outline">
+						<input matInput placeholder="Municipality" [formControl]="originMunicipalityControl"
+							[matAutocomplete]="autoMunicipality"
+							(focus)="triggerAutocomplete(originMunicipalityControl, originFilteredMunicipalities)">
+						<mat-autocomplete #autoMunicipality="matAutocomplete">
+							<mat-option *ngFor="let municipality of originFilteredMunicipalities | async"
+								[value]="municipality">
+								{{ municipality }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</ng-container>
+
+				<!-- Parish Field (only visible if a valid municipality is selected) -->
+				<ng-container
+					*ngIf="originMunicipalityControl.value && originMunicipalities.includes(originMunicipalityControl.value)">
+					<mat-form-field appearance="outline">
+						<input matInput placeholder="Parish" [formControl]="originParishControl"
+							[matAutocomplete]="autoParish"
+							(focus)="triggerAutocomplete(originParishControl, originFilteredParishes)">
+						<mat-autocomplete #autoParish="matAutocomplete">
+							<mat-option *ngFor="let parish of originFilteredParishes | async" [value]="parish">
+								{{ parish }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</ng-container>
+
+
+			</div>
+			<div class="search-input">
+				<!-- District Field -->
+				<mat-label matTooltip="destination"><mat-icon>location_on</mat-icon></mat-label>
+				<mat-form-field appearance="outline">
+					<input matInput placeholder="District" [formControl]="destinationDistrictControl"
+						[matAutocomplete]="autoDestinationDistrict">
+					<mat-autocomplete #autoDestinationDistrict="matAutocomplete">
+						<mat-option *ngFor="let district of destinationFilteredDistricts | async" [value]="district">
+							{{ district }}
+						</mat-option>
+					</mat-autocomplete>
+				</mat-form-field>
+
+				<!-- Municipality Field (only visible if a valid district is selected) -->
+				<ng-container
+					*ngIf="destinationDistrictControl.value && districts.includes(destinationDistrictControl.value)">
+					<mat-form-field appearance="outline">
+						<input matInput placeholder="Municipality" [formControl]="destinationMunicipalityControl"
+							[matAutocomplete]="autoMunicipality"
+							(focus)="triggerAutocomplete(destinationMunicipalityControl, destinationFilteredMunicipalities)">
+						<mat-autocomplete #autoMunicipality="matAutocomplete">
+							<mat-option *ngFor="let municipality of destinationFilteredMunicipalities | async"
+								[value]="municipality">
+								{{ municipality }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</ng-container>
+
+				<!-- Parish Field (only visible if a valid municipality is selected) -->
+				<ng-container
+					*ngIf="destinationMunicipalityControl.value && destinationMunicipalities.includes(destinationMunicipalityControl.value)">
+					<mat-form-field appearance="outline">
+						<input matInput placeholder="Parish" [formControl]="destinationParishControl"
+							[matAutocomplete]="autoParish"
+							(focus)="triggerAutocomplete(destinationParishControl, destinationFilteredParishes)">
+						<mat-autocomplete #autoParish="matAutocomplete">
+							<mat-option *ngFor="let parish of destinationFilteredParishes | async" [value]="parish">
+								{{ parish }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</ng-container>
+
+
+			</div>
+			<button mat-button style="width: 40%; margin: auto; background-color: #4EC28F;" (click)="searchRides()">
+				@if (!originDistrictControl.value && !destinationDistrictControl.value) {
+				Show All
+				} @else {
+				Search
+				}
+			</button>
+			<img *ngIf="!searchReady || !(originDistrictControl.value && destinationDistrictControl.value)" src="/DeBoleiaLogo.svg"
+				alt="" />
+				<!-- <h2 style="margin: auto;">Go DeBoleia</h2> -->
+				<h2 *ngIf="!searchReady || !(originDistrictControl.value && destinationDistrictControl.value)" style="margin: auto;" class="animated-text">Go DeBoleia..!</h2>
+
+				<style>
+					
+				</style>
+				<div *ngIf="searchReady && originDistrictControl.value && destinationDistrictControl.value" style="margin:auto; margin-top: 25px;">
+					<app-map-display
+					  [from]="{
+						district: originDistrictControl.value || undefined,
+						municipality: originMunicipalityControl.value || undefined,
+						parish: originParishControl.value || undefined
+					  }"
+					  [to]="{
+						district: destinationDistrictControl.value || undefined,
+						municipality: destinationMunicipalityControl.value || undefined,
+						parish: destinationParishControl.value || undefined
+					  }"
+					>
+					</app-map-display>
+				  </div>
+
+		</div>
+	</div>
+
+	<div class="col-right">
+		<div class="cards" *ngFor="let trip of trips">
+			<app-trip-card [tripCode]="trip.tripCode" (click)="tripDetails(trip.tripCode)"></app-trip-card>
+		</div>
+	</div>
+</div>

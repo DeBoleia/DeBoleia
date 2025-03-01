@@ -1,0 +1,106 @@
+<div class="header-info" >
+	<div class="user-info">
+		<img src="/avatar.png" alt="Avatar" class="avatar" style="margin: auto;">
+		<h1 id="name">{{user?.name || 'Unknown User'}}</h1>
+	</div>
+</div>
+
+<mat-tab-group>
+	<mat-tab label="As a driver">
+		<table mat-table [dataSource]="tripsAsDriverDataSource">
+
+			<ng-container matColumnDef="origin">
+				<th mat-header-cell *matHeaderCellDef> Origin </th>
+				<td mat-cell *matCellDef="let trip">
+					{{trip.origin.municipality}}, {{trip.origin.district}}
+					<span *ngIf="trip.origin.parish">, {{trip.origin.parish}}</span>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="destination">
+				<th mat-header-cell *matHeaderCellDef> Destination </th>
+				<td mat-cell *matCellDef="let trip">
+					{{trip.destination.municipality}}, {{trip.destination.district}}
+					<span *ngIf="trip.destination.parish">, {{trip.destination.parish}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="date">
+				<th mat-header-cell *matHeaderCellDef> Date </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.departureDate | date}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="car">
+				<th mat-header-cell *matHeaderCellDef> Car </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.car}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef> Status </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.status}} </td>
+			</ng-container>
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef> Actions </th>
+				<td mat-cell *matCellDef="let trip">
+					<button mat-button
+						(click)="manageTrip(trip.tripCode)"><mat-icon>manage_accounts</mat-icon>Manage</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="['origin', 'destination', 'date', 'car', 'status', 'actions']"></tr>
+			<tr mat-row *matRowDef="let row; columns: ['origin', 'destination', 'date', 'car', 'status', 'actions'];">
+			</tr>
+		</table>
+	</mat-tab>
+	<mat-tab label="As a passenger">
+		<table mat-table [dataSource]="tripsAsPassengerDataSource" class="mat-elevation-z8">
+
+			<ng-container matColumnDef="origin">
+				<th mat-header-cell *matHeaderCellDef> Origin </th>
+				<td mat-cell *matCellDef="let trip">
+					{{trip.origin.municipality}}, {{trip.origin.district}}
+					<span *ngIf="trip.origin.parish">, {{trip.origin.parish}}</span>
+				</td>
+			</ng-container>
+			<ng-container matColumnDef="destination">
+				<th mat-header-cell *matHeaderCellDef> Destination </th>
+				<td mat-cell *matCellDef="let trip">
+					{{trip.destination.municipality}}, {{trip.destination.district}}
+					<span *ngIf="trip.destination.parish">, {{trip.destination.parish}}</span>
+				</td>
+			</ng-container>
+
+			<ng-container matColumnDef="date">
+				<th mat-header-cell *matHeaderCellDef> Date </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.departureDate | date}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="driver">
+				<th mat-header-cell *matHeaderCellDef> Driver </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.driver}} </td>
+			</ng-container>
+
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef> Status </th>
+				<td mat-cell *matCellDef="let trip"> {{trip.status}} </td>
+			</ng-container>
+			<ng-container matColumnDef="actions">
+				<th mat-header-cell *matHeaderCellDef> Actions </th>
+				<td mat-cell *matCellDef="let trip">
+					<button mat-button *ngIf="trip.status === 'inOffer' || trip.status === 'closed'"
+						style="background-color: #c24e4e; color: whitesmoke; width: 110px;"
+						(click)="cancelRide(trip?.tripCode)">Cancel Ride</button>
+				</td>
+			</ng-container>
+
+			<tr mat-header-row *matHeaderRowDef="['origin', 'destination', 'date', 'driver', 'status', 'actions']"></tr>
+			<tr mat-row
+				*matRowDef="let row; columns: ['origin', 'destination', 'date', 'driver', 'status', 'actions'];"></tr>
+		</table>
+	</mat-tab>
+	<mat-tab label="My Applications">
+		<div style="display: flex; flex-direction: column; gap: 10px;">
+			<app-aplication-card *ngFor="let application of myApplications; trackBy: trackApplication"
+				[applicationCode]="application.applicationCode" [isDriver]="false"></app-aplication-card>
+		</div>
+	</mat-tab>
+</mat-tab-group>

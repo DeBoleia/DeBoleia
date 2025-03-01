@@ -1,0 +1,64 @@
+mat-card {
+	// background-color: rgb(92, 141, 93)
+	color: black;
+	margin: 15px;
+	width: 550px;
+	height: 270px;
+
+	&:hover {
+		cursor: pointer;
+		transform: translateX(-5px);
+	}
+	
+}
+
+mat-card-header {
+	height: 55px;
+	border-radius: 15px 15px 0 0;
+	background-color: black;
+	color: whitesmoke;
+}
+
+mat-card-content {
+	margin-top: 10px;
+	padding: 5px;
+}
+
+.avatar {
+	margin: auto;
+	vertical-align: middle;
+	width: 50%;
+	height: 50%;
+	border-radius: 50%;
+}
+
+.driver {
+	display: flex;
+	flex-direction: column;
+}
+
+#location-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.locations {
+	width: 100%;
+	gap: 10px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+#container {
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+
+.time-date {
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+}

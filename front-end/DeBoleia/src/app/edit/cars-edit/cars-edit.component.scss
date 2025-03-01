@@ -1,0 +1,108 @@
+
+.mat-dialog-content {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	max-height: 70vh; 
+	overflow-y: auto;  
+}
+
+mat-form-field {
+	width: 100%;
+	margin-bottom: 15px;
+
+}
+
+mat-hint {
+	color: var(--warn-default);
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+button[type="submit"]:enabled {
+	background-color: #4caf50;
+	color: white;
+	border-radius: 4px;
+	padding: 8px 15px;
+}
+
+button[type="submit"]:enabled:hover {
+	background-color: #2e7d32;
+}
+
+button[type="submit"]:disabled {
+	background-color: #ccc;
+	color: #888;
+}
+
+button {
+	padding: auto;
+	margin: 10px;
+}
+
+h2[mat-dialog-title] {
+	font-size: 30px;
+	font-weight: normal;
+	color: #333;
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+.ativo {
+	color: red;
+  }
+  
+  .ocorrido {
+	color: green;
+  }
+
+
+
+  
+
+
+
+
+
+
+
+.inline-fields {
+	display: flex;
+	justify-content: space-between;  /* Distribui os campos igualmente na linha */
+	gap: 10px;                       /* Espaçamento entre os campos */
+	align-items: flex-start;         /* Alinha os campos no topo */
+  }
+  
+  /* Estilo para os campos individuais na linha */
+  .inline-form-field {
+	flex: 1;                         /* Faz os campos ocuparem o mesmo tamanho */
+	min-width: 0;                    /* Evita que o conteúdo ultrapasse o tamanho */
+  }
+  
+  /* Estilo para o formulário geral */
+  .mat-dialog-content {
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+  }
+  
+  /* Ajuste para o título */
+  h2[mat-dialog-title] {
+	font-size: 26px;
+	font-weight: normal;
+	color: #333;
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+  }
+  
+  /* Ajustes para o mat-form-field */
+  mat-form-field {
+	width: 100%; /* Garante que os campos ocupem toda a largura */
+	margin-bottom: 15px; /* Espaçamento entre os campos */
+  }

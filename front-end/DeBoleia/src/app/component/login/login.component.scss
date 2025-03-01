@@ -1,0 +1,41 @@
+.login-container {
+	border-radius: 25px;
+	margin-top: 50px;
+	padding: 15px;
+	width: 100%;
+	background-color: #F1F1E6;
+	// background-color: #05203c;
+}
+
+.mat-mdc-button {
+	// background-color: #F7A825 !important;
+	background-color: #05203c !important;
+	// color: #05203c !important;
+	color: whitesmoke !important;
+	border-radius: 9px;
+	width: 48.33%;
+	margin-bottom: 40px;
+	font-size: 1.1em;
+}
+
+#title {
+	margin-top: 50px;
+	font-size: 3.0em;
+	margin-bottom: 25px;
+	text-align: center;
+	font-weight: bold;
+	margin-left: 25px;
+	// color: whitesmoke;
+	// color: #F7A825;
+}
+
+.action-buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 15px;
+}
+
+.formulario {
+	width: 50%;
+	margin: auto;
+}

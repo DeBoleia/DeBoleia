@@ -1,0 +1,75 @@
+<div class="car-database-container">
+	<mat-card>
+		<mat-card-header>
+			<mat-form-field appearance="outline" class="search-field">
+				<mat-label>Find brand</mat-label>
+				<input (keyup)="filterBrands($event)" matInput placeholder="Search car brands">
+				<mat-icon matSuffix>search</mat-icon>
+			</mat-form-field>
+		</mat-card-header>
+
+		<div class="button-container"
+			style="display: flex; align-items: center; justify-content: space-between; gap: 20px;">
+			<button
+				style="background-color: #6a977a; color: black; padding: 10px 15px; border: none; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;"
+				(click)="addNewCar()">
+				<mat-icon>add</mat-icon>
+				Add New Car
+			</button>
+
+			<img src="/findAride.png" alt="Car Image" style="height: 80px; border-radius: 12px; border: 4px solid  #62de8f;">
+		</div>
+
+		<mat-card-content>
+			<table class="mat-elevation-z8" mat-table [dataSource]="dataSource" matSort [matSortDisableClear]="true"
+				#brandTable>
+
+				<ng-container matColumnDef="brand">
+					<th mat-header-cell *matHeaderCellDef mat-sort-header>Brands</th>
+					<td mat-cell *matCellDef="let element">{{element.brand}}</td>
+				</ng-container>
+
+
+				<ng-container matColumnDef="actions">
+					<th mat-header-cell *matHeaderCellDef></th>
+					<td mat-cell *matCellDef="let element" class="action-cell">
+						<div class="button-group">
+							<button
+								style="background-color: #96e0b1; color: black; padding: 10px 15px; border: none; border-radius: 10px; cursor: pointer;"
+								(click)="viewBrandDetails(element.brand)"><i class="bi bi-eye"></i>
+								View Models
+							</button>
+							<button mat-flat-button color="accent" [ngStyle]="{ 
+								'background-color': '#105613', 
+								'color': 'white', 
+								'padding': '10px 15px', 
+								'border': 'none', 
+								'border-radius': '10px', 
+								'cursor': 'pointer' 
+							}" (click)="renameBrand(element.brand)">
+								<mat-icon>edit</mat-icon>
+								Rename Brand
+							</button>
+						</div>
+					</td>
+				</ng-container>
+
+				<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			</table>
+
+			@if (!dataSource.data.length) {
+			<div class="no-data-message">
+				Loading brands...
+			</div>
+			}
+
+			<mat-card-footer>
+				<br>
+				<div class="footer-container">
+					<mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+				</div>
+			</mat-card-footer>
+		</mat-card-content>
+	</mat-card>
+</div>

@@ -1,0 +1,45 @@
+
+::ng-deep .mat-dialog-container {
+	width: 100% !important;
+	max-width: 1200px !important; 
+	margin: 0 auto !important; 
+	padding: 0 !important; 
+  }
+
+mat-form-field {
+	width: 100%;
+	margin-bottom: 15px;
+
+}
+
+mat-hint {
+	color: var(--warn-default);
+}
+
+.dialog-actions {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 20px;
+}
+
+button[type="submit"]:enabled {
+	background-color: #4caf50;
+	color: white;
+	border-radius: 4px;
+	padding: 8px 15px;
+}
+
+button[type="submit"]:enabled:hover {
+	background-color: #2e7d32;
+}
+
+button[type="submit"]:disabled {
+	background-color: #ccc;
+	color: #888;
+}
+
+button {
+	padding: auto;
+	margin: 10px;
+
+}

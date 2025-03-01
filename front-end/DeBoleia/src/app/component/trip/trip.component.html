@@ -1,0 +1,171 @@
+<div class="container">
+	<!-- Header Section -->
+	<header class="section">
+	  <h1 class="section-title">Plan Your Trip</h1>
+	  <p class="section-subtitle">Easily organize and share your rides with others.</p>
+	</header>
+  
+	<!-- Trip Tab Navigation -->
+	<mat-tab-group [(selectedIndex)]="selectedTabIndex">
+	  <!-- Tab: Initial Information -->
+	  <mat-tab label="Initial Information">
+		<div class="form-section">
+		  <h2 class="form-title">Trip Details</h2>
+		  <form #form="ngForm" class="trip-form">
+			<!-- Car Selection -->
+			<mat-form-field appearance="outline" class="form-field">
+			  <mat-label>Car</mat-label>
+			  <mat-select [(ngModel)]="car" name="car" required>
+				<mat-option *ngFor="let car of user?.cars" [value]="car.licensePlate">
+				  {{ car.brand }} {{ car.model }} {{ car.color }} ({{ car.licensePlate }})
+				</mat-option>
+			  </mat-select>
+			  <mat-error *ngIf="form.controls['car']">
+				Car is required
+			  </mat-error>
+			</mat-form-field>
+  
+			<!-- Number of Seats -->
+			<mat-form-field appearance="outline" class="form-field">
+			  <mat-label>Number of Seats</mat-label>
+			  <input matInput [(ngModel)]="nrSeats" name="nrSeats" type="number" min="1" required>
+			  <mat-error *ngIf="form.controls['nrSeats']?.hasError('required')">
+				Number of seats is required
+			  </mat-error>
+			</mat-form-field>
+  
+			<!-- Departure Date and Time -->
+			<div class="form-group">
+			  <mat-form-field appearance="outline" class="form-field">
+				<mat-label>Trip Date</mat-label>
+				<input matInput [matDatepicker]="datepicker" [(ngModel)]="departureDate" name="departureDate">
+				<mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+				<mat-datepicker #datepicker></mat-datepicker>
+			  </mat-form-field>
+  
+			  <mat-form-field appearance="outline" class="form-field">
+				<mat-label>Trip Time</mat-label>
+				<input matInput [matTimepicker]="timepicker" [(ngModel)]="departureTime" name="departureTime">
+				<mat-timepicker-toggle matSuffix [for]="timepicker"></mat-timepicker-toggle>
+				<mat-timepicker #timepicker></mat-timepicker>
+			  </mat-form-field>
+			</div>
+  
+			<!-- Navigation Buttons -->
+			<div class="button-group">
+			  <button mat-raised-button color="primary" (click)="goToNextTab()">Next</button>
+			</div>
+		  </form>
+		</div>
+	  </mat-tab>
+  
+	  <!-- Tab: Origin and Destination -->
+	  <mat-tab label="Origin and Destination">
+		<div class="form-section">
+		  <h2 class="form-title">Select Locations</h2>
+		  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+			<!-- Step: Origin -->
+			<mat-step [stepControl]="originFormGroup" label="Origin">
+			  <form [formGroup]="originFormGroup" class="step-form">
+				<mat-form-field appearance="outline" class="form-field">
+				  <mat-label>District</mat-label>
+				  <mat-select formControlName="district">
+					<mat-option *ngFor="let district of districts" [value]="district">
+					  {{ district }}
+					</mat-option>
+				  </mat-select>
+				  <mat-error *ngIf="originFormGroup.get('district')?.hasError('required')">
+					District is required
+				  </mat-error>
+				</mat-form-field>
+  
+				<mat-form-field appearance="outline" class="form-field" *ngIf="municipalities.length > 0">
+				  <mat-label>Municipality</mat-label>
+				  <mat-select formControlName="municipality">
+					<mat-option *ngFor="let municipality of municipalities" [value]="municipality">
+					  {{ municipality }}
+					</mat-option>
+				  </mat-select>
+				</mat-form-field>
+  
+				<mat-form-field appearance="outline" class="form-field" *ngIf="parishes.length > 0">
+				  <mat-label>Parish</mat-label>
+				  <mat-select formControlName="parish">
+					<mat-option *ngFor="let parish of parishes" [value]="parish">
+					  {{ parish }}
+					</mat-option>
+				  </mat-select>
+				</mat-form-field>
+				<div class="button-group">
+					<button mat-button color="primary" style="top: 20px;" matStepperNext>Next</button>
+				</div>
+			  </form>
+			</mat-step>
+  
+			<!-- Step: Destination -->
+			<mat-step [stepControl]="destinationFormGroup" label="Destination">
+			  <form [formGroup]="destinationFormGroup" class="step-form">
+				<mat-form-field appearance="outline" class="form-field">
+				  <mat-label>District</mat-label>
+				  <mat-select formControlName="district">
+					<mat-option *ngFor="let district of districts" [value]="district">
+					  {{ district }}
+					</mat-option>
+				  </mat-select>
+				  <mat-error *ngIf="destinationFormGroup.get('district')?.hasError('required')">
+					District is required
+				  </mat-error>
+				</mat-form-field>
+  
+				<mat-form-field appearance="outline" class="form-field" *ngIf="destinationMunicipalities.length > 0">
+				  <mat-label>Municipality</mat-label>
+				  <mat-select formControlName="municipality">
+					<mat-option *ngFor="let municipality of destinationMunicipalities" [value]="municipality">
+					  {{ municipality }}
+					</mat-option>
+				  </mat-select>
+				</mat-form-field>
+  
+				<mat-form-field appearance="outline" class="form-field" *ngIf="destinationParishes.length > 0">
+				  <mat-label>Parish</mat-label>
+				  <mat-select formControlName="parish">
+					<mat-option *ngFor="let parish of destinationParishes" [value]="parish">
+					  {{ parish }}
+					</mat-option>
+				  </mat-select>
+				</mat-form-field>
+				<div class="button-group">
+					<button mat-button matStepperPrevious>Previous</button>
+					<button mat-button color="primary" style="top: 20px;"  (click)="goToNextTab(); accessMapDistance()" [disabled]="!destinationFormGroup.get('district')?.value">Next</button>
+				</div>
+			  </form>
+			</mat-step>
+		  </mat-horizontal-stepper>
+		</div>
+		<div *ngIf="originFormGroup.get('district')?.value && destinationFormGroup.get('district')?.value"
+			style="display: flex; justify-content: center; align-items: center; margin-top: 20px; margin: auto;">
+			<app-map-display [from]="originFormGroup.value" [to]="destinationFormGroup.value"></app-map-display>
+		</div>
+	  </mat-tab>
+  
+	  <!-- Tab: Costs -->
+	  <mat-tab label="Costs">
+		<div class="form-section">
+		  <h2 class="form-title">Estimated Costs</h2>
+		  <p *ngIf="distance > 0">
+			Recommended charge per person: {{ ((distance * 0.25 + 0.05) / 4).toFixed(2) }} EUR
+		  </p>
+		  <mat-form-field appearance="outline" class="form-field">
+			<mat-label>Price per Person</mat-label>
+			<p>Choose how much you will charge per passenger:</p>
+			<input matInput [(ngModel)]="pricePerPerson" name="pricePerPerson" type="number" step="0.1" required>
+		  </mat-form-field>
+		  <div class="button-group">
+			<button mat-button (click)="goToPreviousTab()">Previous</button>
+			<button mat-raised-button color="primary" (click)="onTripInfoLoaded()">Create Trip</button>
+		  </div>
+		</div>
+	  </mat-tab>
+	</mat-tab-group>
+  </div>
+  

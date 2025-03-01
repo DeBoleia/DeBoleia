@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>Avaliações Pendentes</h2>
+
+<div mat-dialog-content>
+  <!-- Avaliações pendentes de Passageiros -->
+  <div *ngIf="pendingPassengerEvaluations.length > 0">
+    <h3>Passageiros</h3>
+    <ul>
+      <li *ngFor="let evaluation of pendingPassengerEvaluations">
+        {{ evaluation }}
+        <!-- Componente de Rating para Passageiros -->
+        <app-star-rating 
+          [readOnly]="false" 
+          [size]="'lg'" 
+          (ratingChange)="completePassengerEvaluation($event, evaluation)">
+        </app-star-rating>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Avaliações pendentes de Motoristas -->
+  <div *ngIf="pendingDriverEvaluations.length > 0">
+    <h3>Motoristas</h3>
+    <ul>
+      <li *ngFor="let evaluation of pendingDriverEvaluations">
+        {{ evaluation }}
+        <!-- Componente de Rating para Motoristas -->
+        <app-star-rating 
+          [readOnly]="false" 
+          [size]="'lg'" 
+          (ratingChange)="completeDriverEvaluation($event, evaluation)">
+        </app-star-rating>
+      </li>
+    </ul>
+  </div>
+</div>
