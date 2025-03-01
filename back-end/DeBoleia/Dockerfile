@@ -1,7 +1,7 @@
 FROM node:19-slim
 
 # Copie apenas o package.json e package-lock.json para o diretório de trabalho
-COPY ./DeBoleia/package*.json /app/deboleia
+COPY ./DeBoleia/package*.json /app/deboleia/
 
 # Defina o diretório de trabalho
 WORKDIR /app/deboleia

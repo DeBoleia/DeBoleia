@@ -11,14 +11,14 @@ services:
     networks:
       - deboleia_network
     volumes:
-      - ./back-end/DeBoleia/DB:/app/deboleia/DB
+      - ./back-end/DeBoleia/DeBoleia/DB:/app/deboleia/DB
     restart: on-failure
     depends_on:
       - mongodb
 
   deboleia_fe:
     build:
-      context: ./front-end/DeBoleia
+      context: ./front-end
       dockerfile: Dockerfile
     ports:
       - "4200:4200"

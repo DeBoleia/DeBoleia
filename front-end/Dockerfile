@@ -1,6 +1,6 @@
 FROM node:19-slim
 
-COPY ./DeBoleia/package*.json /app/deboleia
+COPY ./DeBoleia/package*.json /app/deboleia/
 
 WORKDIR /app/deboleia
 

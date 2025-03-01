@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+data
+back-end/DeBoleia/DeBoleia/DB/deboleia_users.db
+back-end/DeBoleia/DeBoleia/DB/deboleia_users.db
