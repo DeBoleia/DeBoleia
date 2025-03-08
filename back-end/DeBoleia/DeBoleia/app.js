@@ -11,8 +11,8 @@ app.use(cors());
 
 //require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-const API_PORT = process.env.DEBOLEIA_API_PORT;
-const DB_CONN_STRING = process.env.DEBOLEIA_MONGO_DB_CON_STRING;
+const API_PORT = process.env.DEBOLEIA_API_PORT || "8082";
+const DB_CONN_STRING = process.env.DEBOLEIA_MONGO_DB_CON_STRING || "mongodb://127.0.0.1:27017/DeBoleia" ;
 
 if (!DB_CONN_STRING) {
   console.error('Error: DEBOLEIA_MONGO_DB_CON_STRING not provided.');

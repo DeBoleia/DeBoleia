@@ -18,6 +18,9 @@ import { MessageService } from '../../services/message.service';
 import { DatabaseCars } from '../../interfaces/car';
 import { CarsEditComponent } from '../../edit/cars-edit/cars-edit.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import * as Papa from 'papaparse';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-car-database',
@@ -57,12 +60,13 @@ export class CarDatabaseComponent implements OnInit, AfterViewInit {
   modelOptions: string[] = [];
 
   constructor(
+    private http: HttpClient,
     private carDatabaseService: CarDatabaseService,
     private carsService: CarsService,
     private messageService: MessageService,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadCarBrands();
@@ -82,6 +86,7 @@ export class CarDatabaseComponent implements OnInit, AfterViewInit {
         this.dataSource.data = brands.map(
           (brand: string) => ({ brand } as DatabaseCars)
         );
+        console.log("cars retreived from database: ", this.dataSource.data);
       },
       error: (error) => {
         this.messageService.showSnackbar('Error loading brands', 'error');
@@ -129,7 +134,7 @@ export class CarDatabaseComponent implements OnInit, AfterViewInit {
             console.error('Error while creating car:', error);
             this.messageService.showSnackbar(
               'Error while creating car: ' +
-                (error.error?.error ? error.error.error : error.message)
+              (error.error?.error ? error.error.error : error.message)
             );
           }
         );
@@ -137,6 +142,40 @@ export class CarDatabaseComponent implements OnInit, AfterViewInit {
         console.log('Ação de criação de car foi cancelada');
       }
     });
+  }
+  loadCSVFile(): void {
+    this.http.get('/carros.csv', { responseType: 'text' }).subscribe(
+      (data) => {
+        const result = Papa.parse(data, {
+          header: true,
+          skipEmptyLines: true,
+        });
+
+        const cars = result.data;
+        console.log('json gerado: ', cars);
+        this.carDatabaseService.loadCsv(result).subscribe(
+          (response) => {
+            this.messageService.showSnackbar(
+              'CSV loaded successfully!',
+              'success'
+            );
+
+            this.loadCarBrands();
+          },
+          (error) => {
+            console.error('Error while creating car:', error);
+            this.messageService.showSnackbar(
+              'Error while uploading csv: ' +
+              (error.error?.error ? error.error.error : error.message)
+            );
+          }
+        );
+        // this.loadCarBrands();
+      },
+      (error) => {
+        console.error('Error reading the csv file:', error);
+      }
+    );
   }
 
   renameBrand(brand: string): void {

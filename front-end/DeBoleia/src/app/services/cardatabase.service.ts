@@ -17,11 +17,11 @@ export class CarDatabaseService {
   }
 
   getCarsByBrand(brand: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/models`, { brand });
+    return this.http.get(`${this.baseUrlCarros}/${brand}/models`);
   }
 
   getBrandsList(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/brands`);
+    return this.http.get(`${this.baseUrlCarros}/all/brands`);
   }
 
   renameBrand(oldBrand: string, newBrand: string): Observable<any> {
@@ -37,6 +37,11 @@ export class CarDatabaseService {
 
   addNewCar(carData: { brand: string, model: string }): Observable<any> {
     return this.http.post(`${this.baseUrlCarros}`, carData);
+  }
+
+  loadCsv(carData: any): Observable<any> {
+    console.log('loadcsv funciton called')
+    return this.http.post(`${this.baseUrlCarros}` + '/uploadcsv', carData);
   }
 
   createCarModel(brand: string, model: string): Observable<any> {
