@@ -1,18 +1,18 @@
 FROM node:19-slim
 
 # Copie apenas o package.json e package-lock.json para o diretório de trabalho
-COPY ./DeBoleia/package*.json /app/DeBoleia/
+COPY ./Cars/package*.json /app/cars/
 
 # Defina o diretório de trabalho
-WORKDIR /app/DeBoleia
+WORKDIR /app/cars
 
 # Instale as dependências
 RUN npm install
 
 # Copie o restante dos arquivos, exceto node_modules
-COPY ./DeBoleia /app/DeBoleia
+COPY ./Cars /app/cars
 
-EXPOSE 8082
+EXPOSE 8083
 
 # Comando de entrada
 ENTRYPOINT [ "npm", "run", "start" ]

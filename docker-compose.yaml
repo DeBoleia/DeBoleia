@@ -28,22 +28,22 @@ services:
       - deboleia_network
     restart: on-failure
 
-  # cars_be: 
-  #   build:
-  #     context: ./Cars_BE
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8083:8083"
-  #   environment:
-  #     - API_PORT=8083
-  #     - MONGO_DB_CON_STRING=mongodb://mongodb:27017/cars
-  #   networks:
-  #     - deboleia_network
-  #   volumes:
-  #     - ./DeBoleia_BE/DeBoleia_BE_GIT/DeBoleia/DB:/app/deboleia-be/DB
-  #   restart: on-failure
-  #   depends_on:
-  #     - mongodb
+  cars_be: 
+    build:
+      context: ./back-end/Cars_API
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - API_PORT=8083
+      - MONGO_DB_CON_STRING=mongodb://mongodb:27017/cars
+    networks:
+      - deboleia_network
+    volumes:
+      - ./DeBoleia_BE/DeBoleia_BE_GIT/DeBoleia/DB:/app/deboleia-be/DB
+    restart: on-failure
+    depends_on:
+      - mongodb
 
   # geoapi:
   #   build:
